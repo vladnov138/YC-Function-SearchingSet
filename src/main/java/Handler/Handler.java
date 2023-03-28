@@ -81,7 +81,7 @@ public class Handler implements Function<Request, Response> {
         JSONObject jsonObject = new JSONObject(request.getBody());
         GameSet gameSet = new GameSet(jsonObject.getJSONArray("cards"));
         String setCards = gameSet.findSet().toString();
-        return new Response(200, "{\"status\": \"ok\", setCards:" + setCards + "}");
+        return new Response(200, "{\"status\": \"ok\", \"setCards\":" + setCards + "}");
     }
 }
 
