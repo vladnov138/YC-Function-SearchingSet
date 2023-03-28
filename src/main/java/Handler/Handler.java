@@ -34,7 +34,7 @@ class GameSet {
     }
 
     public JSONArray findSet() {
-        JSONArray tempSetCards = new JSONArray();
+        JSONArray setCards = new JSONArray();
         for (int i = 0; i < _cards.length(); i++) {
             JSONObject[] cards = new JSONObject[3];
             cards[0] = _cards.getJSONObject(i);
@@ -50,10 +50,10 @@ class GameSet {
                             break;
                         }
                     if (flagSet) {
-                        tempSetCards.put(cards[0]);
-                        tempSetCards.put(cards[1]);
-                        tempSetCards.put(cards[2]);
-                        return tempSetCards;
+                        setCards.put(cards[0]);
+                        setCards.put(cards[1]);
+                        setCards.put(cards[2]);
+                        return setCards;
                     }
                 }
             }
@@ -80,7 +80,8 @@ public class Handler implements Function<Request, Response> {
     public Response apply(Request request) {
         JSONObject jsonObject = new JSONObject(request.getBody());
         GameSet gameSet = new GameSet(jsonObject.getJSONArray("cards"));
-        return new Response(200, gameSet.findSet().toString());
+        String setCards = gameSet.findSet().toString();
+        return new Response(200, "{\"status\": \"ok\", setCards:" + setCards + "}");
     }
 }
 
